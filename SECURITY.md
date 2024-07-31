@@ -6,8 +6,8 @@ This repository is provided as-is to the community as per the MIT license, users
 
 ## Reporting a Vulnerability
 
-If you spot a vulnerability, we recommend you contact info [at] mediadc [dot] co [dot] uk detailing:
-- With a subject starting "SECURITY VULNERABILITY: "
+If you spot a vulnerability, we recommend you contact info [at] mediadc [dot] co [dot] uk supplying:
+- A subject starting "SECURITY VULNERABILITY: "
 - The repository name
 - Affected files/lines
 - An explanation of how you believe it is vulnerable
