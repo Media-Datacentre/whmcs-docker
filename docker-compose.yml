@@ -1,0 +1,44 @@
+# Avoid updating env vars in here, instead copy example.env to .env and edit there.
+
+services:
+  whmcs:
+    build:
+      context: whmcs
+      args:
+      #  - WHMCS_ZIP_FILENAME="${WHMCS_ZIP_FILENAME}"
+        - WHMCS_MODULES_DOWNLOAD=${WHMCS_MODULES_DOWNLOAD}
+    container_name: whmcs-docker
+    environment:
+      - WHMCS_LICENSE=${WHMCS_LICENSE}
+      - WHMCS_DB_HOST=${WHMCS_DB_HOST}
+      - WHMCS_ADMIN_PATH=${WHMCS_ADMIN_PATH}
+      - WHMCS_RUN_INSTALLER=${WHMCS_RUN_INSTALLER}
+    # Example bind for local development.
+    # Please note ./whmcs/entrypoint.d/16-post-setup.sh will
+    # populate these folders if empty
+    # volumes:
+    #   - type: bind
+    #     source: ./whmcs/data/modules
+    #     target: /app/modules/
+    #   - type: bind
+    #     source: ./whmcs/data/templates
+    #     target: /app/templates/
+    ports:
+    - "80:80"
+    - "443:443"
+
+  database:
+    image: mariadb:lts-noble
+    container_name: whmcs-database
+    environment:
+      - MARIADB_RANDOM_ROOT_PASSWORD=1
+      - MARIADB_DATABASE=${WHMCS_DB_NAME}
+      - MARIADB_USER=${WHMCS_DB_USERNAME}
+      - MARIADB_PASSWORD=${WHMCS_DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+    - "3306:3306"
+
+volumes:
+  db-data:
